@@ -4,4 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loremloremloremlorem">loremloremloremlorem</string>
     <string name="coffee_name">Coffee Name</string>
+    <string name="coffee_name2">Coffee Name</string>
+    <string name="coffee_detail">Coffee Detail</string>
+    <string name="b1eksi">-</string>
+    <string name="b2arti">+</string>
 </resources>
