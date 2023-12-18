@@ -26,11 +26,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="65dp"
+        android:layout_marginEnd="53dp"
         android:text="1"
+        android:elevation="16dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
 
