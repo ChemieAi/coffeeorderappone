@@ -5,12 +5,18 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.first.coffeeorderappone.Adapter.CoffeeAdapter;
+import com.first.coffeeorderappone.MVVM.CoffeeViewModel;
 import com.first.coffeeorderappone.Model.CoffeeModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,7 +30,10 @@ import java.util.Objects;
 
 public class AllCoffeeListFragment extends Fragment {
 
-
+    FirebaseFirestore firebaseFirestore;
+    CoffeeAdapter mAdapter;
+    RecyclerView recyclerView;
+    CoffeeViewModel viewModel;
     public AllCoffeeListFragment() {
         // Required empty public constructor
     }
@@ -39,6 +48,21 @@ public class AllCoffeeListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        recyclerView = view.findViewById(R.id.recViewAll);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAdapter = new CoffeeAdapter();
+        viewModel = new ViewModelProvider(getActivity()).get(CoffeeViewModel.class);
+        viewModel.getCoffeeList().observe(getViewLifecycleOwner(), new Observer<List<CoffeeModel>>() {
+            @Override
+            public void onChanged(List<CoffeeModel> coffeeModels) {
+
+                mAdapter.setCoffeeModelList(coffeeModels);
+                recyclerView.setAdapter(mAdapter);
+
+            }
+        });
 
 
 

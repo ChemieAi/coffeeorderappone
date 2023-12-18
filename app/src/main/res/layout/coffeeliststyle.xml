@@ -37,7 +37,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/coffeDetail"
+                android:id="@+id/coffeeDetail"
                 android:layout_toEndOf="@id/coffeeImage"
                 android:layout_below="@id/coffeeName"
                 android:layout_marginStart="15dp"
