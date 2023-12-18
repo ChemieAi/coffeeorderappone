@@ -1,18 +1,22 @@
 package com.first.coffeeorderappone.Model;
 
+import com.google.firebase.firestore.DocumentId;
+
 public class CoffeeModel {
 
+    @DocumentId
     String coffeeid;
-    String coffeeName;
-    int quantity, price;
+    String description, imageURL, coffeename;
+    int price;
 
     public CoffeeModel() {
     }
 
-    public CoffeeModel(String coffeeid, String coffeeName, int quantity, int price) {
+    public CoffeeModel(String coffeeid, String description, String imageURL, String coffeename, int price) {
         this.coffeeid = coffeeid;
-        this.coffeeName = coffeeName;
-        this.quantity = quantity;
+        this.description = description;
+        this.imageURL = imageURL;
+        this.coffeename = coffeename;
         this.price = price;
     }
 
@@ -24,20 +28,28 @@ public class CoffeeModel {
         this.coffeeid = coffeeid;
     }
 
-    public String getCoffeeName() {
-        return coffeeName;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCoffeeName(String coffeeName) {
-        this.coffeeName = coffeeName;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public String getCoffeename() {
+        return coffeename;
+    }
+
+    public void setCoffeename(String coffeename) {
+        this.coffeename = coffeename;
     }
 
     public int getPrice() {
