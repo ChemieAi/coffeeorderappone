@@ -59,4 +59,15 @@ public class CoffeeModel {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "CoffeeModel{" +
+                "coffeeid='" + coffeeid + '\'' +
+                ", description='" + description + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", coffeename='" + coffeename + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
