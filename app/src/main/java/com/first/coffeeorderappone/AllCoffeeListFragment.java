@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.first.coffeeorderappone.Adapter.CoffeeAdapter;
 import com.first.coffeeorderappone.MVVM.CoffeeViewModel;
+import com.first.coffeeorderappone.Model.CartModel;
 import com.first.coffeeorderappone.Model.CoffeeModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -82,14 +83,14 @@ public class AllCoffeeListFragment extends Fragment implements CoffeeAdapter.Get
 
         quantity = AllCoffeeListFragmentArgs.fromBundle(getArguments()).getQuantity();
 
-        firebaseFirestore.collection("Coffies").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firebaseFirestore.collection("Cart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(Task<QuerySnapshot> task) {
 
                 if (task.isSuccessful()){
                     for (DocumentSnapshot ds: task.getResult().getDocuments()){
-                        CoffeeModel coffeeModel = ds.toObject(CoffeeModel.class);
-                        int initialquantity= coffeeModel.getQuantity();
+                        CartModel cartModel = ds.toObject(CartModel.class);
+                        int initialquantity= cartModel.getQuantity();
 
                         savequantity.add(initialquantity);
 

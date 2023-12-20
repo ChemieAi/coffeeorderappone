@@ -116,6 +116,13 @@ public class CoffeeDetailFragment extends Fragment {
                         }
                     });
 
+                    firebaseFirestore.collection("Cart").document(name).update("quantity", quantity).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(Task<Void> task) {
+
+                        }
+                    });
+
 
                 }
 
@@ -130,6 +137,7 @@ public class CoffeeDetailFragment extends Fragment {
                 if (quantity == 0) {
                     Toast.makeText(getContext(), "Nothing in Cart!", Toast.LENGTH_SHORT).show();
                     quantityview.setText(String.valueOf(quantity));
+
                 }
 
                 else {
@@ -142,6 +150,13 @@ public class CoffeeDetailFragment extends Fragment {
                     orderINFO.setText(String.valueOf("Total Price is: "+ totalPrice));
 
                     firebaseFirestore.collection("Coffies").document(coffeid).update("quantity",quantity).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(Task<Void> task) {
+
+                        }
+                    });
+
+                    firebaseFirestore.collection("Cart").document(name).update("quantity", quantity).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(Task<Void> task) {
 
