@@ -16,12 +16,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.first.coffeeorderappone.Adapter.CoffeeAdapter;
 import com.first.coffeeorderappone.MVVM.CoffeeViewModel;
 import com.first.coffeeorderappone.Model.CoffeeModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -37,6 +39,11 @@ public class AllCoffeeListFragment extends Fragment implements CoffeeAdapter.Get
     RecyclerView recyclerView;
     CoffeeViewModel viewModel;
     NavController navController;
+    int quantity= 0;
+    TextView quantityOnFab;
+    FloatingActionButton fab;
+    List<Integer> savequantity = new ArrayList<>();
+    int quantitysum= 0;
 
     public AllCoffeeListFragment() {
         // Required empty public constructor
@@ -53,11 +60,14 @@ public class AllCoffeeListFragment extends Fragment implements CoffeeAdapter.Get
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         recyclerView = view.findViewById(R.id.recViewAll);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new CoffeeAdapter(this);
         navController = Navigation.findNavController(view);
+        quantityOnFab = view.findViewById(R.id.quantityOnFab);
+        fab = view.findViewById(R.id.fab);
         viewModel = new ViewModelProvider(getActivity()).get(CoffeeViewModel.class);
         viewModel.getCoffeeList().observe(getViewLifecycleOwner(), new Observer<List<CoffeeModel>>() {
             @Override
@@ -65,6 +75,36 @@ public class AllCoffeeListFragment extends Fragment implements CoffeeAdapter.Get
 
                 mAdapter.setCoffeeModelList(coffeeModels);
                 recyclerView.setAdapter(mAdapter);
+
+            }
+        });
+
+
+        quantity = AllCoffeeListFragmentArgs.fromBundle(getArguments()).getQuantity();
+
+        firebaseFirestore.collection("Coffies").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(Task<QuerySnapshot> task) {
+
+                if (task.isSuccessful()){
+                    for (DocumentSnapshot ds: task.getResult().getDocuments()){
+                        CoffeeModel coffeeModel = ds.toObject(CoffeeModel.class);
+                        int initialquantity= coffeeModel.getQuantity();
+
+                        savequantity.add(initialquantity);
+
+                    }
+
+                    for (int i=0; i< savequantity.size(); i++ ){
+
+                        quantitysum+= Integer.parseInt(String.valueOf(savequantity.get(i)));
+
+                    }
+
+                    quantityOnFab.setText(String.valueOf(quantitysum));
+                    quantitysum =0;
+                    savequantity.clear(); //Unless we add something new to our list // previous records are cleared.
+                }
 
             }
         });

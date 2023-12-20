@@ -96,25 +96,27 @@ public class CoffeeDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (quantity < 15){
-
-                    quantity++;
-
+                if (quantity == 15){
+                    Toast.makeText(getContext(), "You have reached the maximum order quantity.", Toast.LENGTH_SHORT).show();
                     quantityview.setText(String.valueOf(quantity));
 
-                    totalPrice = quantity*price;
-                    orderINFO.setText(String.valueOf("Total Price is: "+ totalPrice));
 
-                    firebaseFirestore.collection("Coffies").document(coffeid).update("quantity",quantity).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(Task<Void> task) {
+                    }else {
+                        quantity++;
+
+                        quantityview.setText(String.valueOf(quantity));
+
+                        totalPrice = quantity*price;
+                        orderINFO.setText(String.valueOf("Total Price is: "+ totalPrice));
+
+                        firebaseFirestore.collection("Coffies").document(coffeid).update("quantity",quantity).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(Task<Void> task) {
 
                         }
                     });
 
 
-                } else {
-                    Toast.makeText(getContext(), "You have reached the maximum order quantity.", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -127,9 +129,10 @@ public class CoffeeDetailFragment extends Fragment {
 
                 if (quantity == 0) {
                     Toast.makeText(getContext(), "Nothing in Cart!", Toast.LENGTH_SHORT).show();
+                    quantityview.setText(String.valueOf(quantity));
                 }
 
-                if (quantity > 0){
+                else {
 
                     quantity--;
 
@@ -185,6 +188,8 @@ public class CoffeeDetailFragment extends Fragment {
                     if (task.isSuccessful()){
 
                         Toast.makeText(getContext(), "Added to Cart", Toast.LENGTH_SHORT).show();
+
+                        // sending value to be displayed on the cart icon
                         CoffeeDetailFragmentDirections.ActionCoffeeDetailFragmentToAllCoffeeListFragment
                                 action = CoffeeDetailFragmentDirections.actionCoffeeDetailFragmentToAllCoffeeListFragment();
                         action.setQuantity(quantity);
