@@ -16,6 +16,11 @@
         <action
             android:id="@+id/action_allCoffeeListFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <argument
+            android:name="quantity"
+            app:argType="integer"
+            android:defaultValue="0" />
+
     </fragment>
     <fragment
         android:id="@+id/coffeeDetailFragment"
@@ -25,6 +30,28 @@
         <action
             android:id="@+id/action_coffeeDetailFragment_to_allCoffeeListFragment"
             app:destination="@id/allCoffeeListFragment" />
+
+        <argument
+            android:name="coffeename"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="description"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="imageurl"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="price"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="id"
+            app:argType="string"
+            android:defaultValue="null" />
+
     </fragment>
     <fragment
         android:id="@+id/cartFragment"

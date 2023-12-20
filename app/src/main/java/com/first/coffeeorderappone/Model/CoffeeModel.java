@@ -7,17 +7,18 @@ public class CoffeeModel {
     @DocumentId
     String coffeeid;
     String description, imageURL, coffeename;
-    int price;
+    int price, quantity;
 
     public CoffeeModel() {
     }
 
-    public CoffeeModel(String coffeeid, String description, String imageURL, String coffeename, int price) {
+    public CoffeeModel(String coffeeid, String description, String imageURL, String coffeename, int price, int quantity) {
         this.coffeeid = coffeeid;
         this.description = description;
         this.imageURL = imageURL;
         this.coffeename = coffeename;
         this.price = price;
+        this.quantity = quantity;
     }
 
     public String getCoffeeid() {
@@ -60,6 +61,14 @@ public class CoffeeModel {
         this.price = price;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     @Override
     public String toString() {
         return "CoffeeModel{" +
@@ -68,6 +77,7 @@ public class CoffeeModel {
                 ", imageURL='" + imageURL + '\'' +
                 ", coffeename='" + coffeename + '\'' +
                 ", price=" + price +
+                ", quantity=" + quantity +
                 '}';
     }
 }
