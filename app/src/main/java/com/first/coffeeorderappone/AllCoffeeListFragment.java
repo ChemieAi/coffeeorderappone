@@ -1,5 +1,6 @@
 package com.first.coffeeorderappone;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,7 +17,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.first.coffeeorderappone.Adapter.CoffeeAdapter;
 import com.first.coffeeorderappone.MVVM.CoffeeViewModel;
@@ -25,6 +28,8 @@ import com.first.coffeeorderappone.Model.CoffeeModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -33,9 +38,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+
 public class AllCoffeeListFragment extends Fragment implements CoffeeAdapter.GetOneCoffee {
 
     FirebaseFirestore firebaseFirestore;
+    FirebaseAuth mAuth;
+    private Button btnLogout;
     CoffeeAdapter mAdapter;
     RecyclerView recyclerView;
     CoffeeViewModel viewModel;
@@ -62,6 +70,8 @@ public class AllCoffeeListFragment extends Fragment implements CoffeeAdapter.Get
         super.onViewCreated(view, savedInstanceState);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        btnLogout = view.findViewById(R.id.fab_iki);
 
         recyclerView = view.findViewById(R.id.recViewAll);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -70,6 +80,15 @@ public class AllCoffeeListFragment extends Fragment implements CoffeeAdapter.Get
         quantityOnFab = view.findViewById(R.id.quantityOnFab);
         fab = view.findViewById(R.id.fab);
         viewModel = new ViewModelProvider(getActivity()).get(CoffeeViewModel.class);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                navController.navigate(R.id.action_allCoffeeListFragment_to_loginFragment);
+                Toast.makeText(getContext(), "Successfully Logout", Toast.LENGTH_SHORT).show();
+            }
+        });
         viewModel.getCoffeeList().observe(getViewLifecycleOwner(), new Observer<List<CoffeeModel>>() {
             @Override
             public void onChanged(List<CoffeeModel> coffeeModels) {
