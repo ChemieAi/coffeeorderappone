@@ -138,6 +138,8 @@ public class CoffeeDetailFragment extends Fragment {
                     Toast.makeText(getContext(), "Nothing in Cart!", Toast.LENGTH_SHORT).show();
                     quantityview.setText(String.valueOf(quantity));
 
+
+
                 }
 
                 else {
@@ -184,6 +186,15 @@ public class CoffeeDetailFragment extends Fragment {
         if (quantity == 0){
             navController.navigate(R.id.action_coffeeDetailFragment_to_allCoffeeListFragment);
             Toast.makeText(getContext(), "You did not order " + name, Toast.LENGTH_SHORT).show();
+
+            //if quantity is zero delete the document ( for clearing the cart)
+            firebaseFirestore.collection("Cart").document(name).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(Task<Void> task) {
+
+                }
+            });
+
         } else {
 
             HashMap<String, Object> hashMap = new HashMap<>();

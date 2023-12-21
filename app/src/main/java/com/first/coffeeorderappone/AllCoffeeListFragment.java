@@ -110,6 +110,13 @@ public class AllCoffeeListFragment extends Fragment implements CoffeeAdapter.Get
             }
         });
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_allCoffeeListFragment_to_cartFragment);
+            }
+        });
+
 
 
     }
@@ -133,4 +140,5 @@ public class AllCoffeeListFragment extends Fragment implements CoffeeAdapter.Get
 
     navController.navigate(action);
     }
+
 }
