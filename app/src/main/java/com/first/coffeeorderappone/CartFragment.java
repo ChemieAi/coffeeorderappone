@@ -22,7 +22,9 @@ import com.first.coffeeorderappone.Model.CartModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -38,9 +40,9 @@ public class CartFragment extends Fragment {
     TextView orderSummary;
     NavController navController;
 
-
     List<CartModel> cartModelList = new ArrayList<>();
-
+    int totalOrderCost=0;
+    List<Integer> saveTotalCost=new ArrayList<>();
 
     public CartFragment() {
         // Required empty public constructor
@@ -65,6 +67,7 @@ public class CartFragment extends Fragment {
         orderbutton = view.findViewById(R.id.orderNow);
         recyclerView = view.findViewById(R.id.cartRecView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        orderSummary = view.findViewById(R.id.orderSummary);
 
 
         firestore.collection("Cart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -89,6 +92,34 @@ public class CartFragment extends Fragment {
             }
         });
 
+        //adding the total price off all orders
+        firestore.collection("Cart").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot value, FirebaseFirestoreException error) {
+
+                if (value!=null){
+
+                    for (DocumentSnapshot ds: value.getDocuments()){
+                        CartModel cartModel = ds.toObject(CartModel.class);
+                        //we are adding all prices into a list of an integers
+                        int valueOfAllPrices = cartModel.getTotalprice();
+                        saveTotalCost.add(valueOfAllPrices);
+
+                    }
+
+                    for (int i=0; i<saveTotalCost.size(); i++){
+                        totalOrderCost += Integer.parseInt(String.valueOf(saveTotalCost.get(i)));
+                    }
+
+                    orderSummary.setText("Total is " + String.valueOf(totalOrderCost));
+
+                    totalOrderCost = 0;
+                    saveTotalCost.clear();
+
+
+                }
+            }
+        });
 
         //cart should be empty after order now clicked
 
