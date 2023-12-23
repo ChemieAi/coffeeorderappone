@@ -107,7 +107,7 @@ public class CoffeeDetailFragment extends Fragment {
                         quantityview.setText(String.valueOf(quantity));
 
                         totalPrice = quantity*price;
-                        orderINFO.setText(String.valueOf("Total Price is: "+ totalPrice));
+                        orderINFO.setText(String.valueOf("Total Price is: $"+ totalPrice));
 
                         firebaseFirestore.collection("Coffies").document(coffeid).update("quantity",quantity).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override

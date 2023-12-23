@@ -94,7 +94,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp"
-                android:text="Total Price is "
+                android:text="Total Price is $"
                 />
             <Button
                 android:layout_width="wrap_content"

@@ -111,7 +111,7 @@ public class CartFragment extends Fragment {
                         totalOrderCost += Integer.parseInt(String.valueOf(saveTotalCost.get(i)));
                     }
 
-                    orderSummary.setText("Total is " + String.valueOf(totalOrderCost));
+                    orderSummary.setText("Total is $" + String.valueOf(totalOrderCost));
 
                     totalOrderCost = 0;
                     saveTotalCost.clear();
