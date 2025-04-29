@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "733208320420",
+    "project_id": "coffeeorderappone",
+    "storage_bucket": "coffeeorderappone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733208320420:android:a23a6634a9d940ad950931",
+        "android_client_info": {
+          "package_name": "com.first.coffeeorderappone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa6nzSAiLAIvQP7WgZaAndfhdouULavoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
